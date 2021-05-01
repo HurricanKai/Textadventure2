@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.font.LineMetrics;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 
@@ -22,6 +23,7 @@ public final class BetterGraphics {
 	private final int _offsetX;
 	private final int _offsetY;
 	private final Color _color;
+	private final Font _font;
 
 	public BetterGraphics(Graphics g) {
 		_g = g;
@@ -31,15 +33,17 @@ public final class BetterGraphics {
 		_width = bounds.width;
 		_height = bounds.height;
 		_color = g.getColor();
+		_font = g.getFont();
 	}
 	
-	private BetterGraphics(Graphics g, int offsetX, int offsetY, int width, int height, Color color) {
+	private BetterGraphics(Graphics g, int offsetX, int offsetY, int width, int height, Color color, Font font) {
 		_g = g;
 		_offsetX = offsetX;
 		_offsetY = offsetY;
 		_width = width;
 		_height = height;
 		_color = color;
+		_font = font;
 	}
 
 	public void drawArc(ISizeReference x, ISizeReference y, ISizeReference width, ISizeReference height, int startAngle, int arcAngle) {
@@ -118,11 +122,21 @@ public final class BetterGraphics {
 	
 	public void drawString(String str, ISizeReference x, ISizeReference y) {
 		_g.setColor(_color);
+		_g.setFont(_font);
 		_g.drawString(str, _offsetX + x.getValue(_width), _offsetY + y.getValue(_height));
+	}
+
+	public void drawStringCentered(String str, ISizeReference x, ISizeReference y) {
+		FontMetrics fontMetrics = getFontMetrics(_font);
+		int strWidth = fontMetrics.stringWidth(str);
+		_g.setColor(_color);
+		_g.setFont(_font);
+		_g.drawString(str, _offsetX + x.getValue(_width) - (int)(strWidth * 0.5f), _offsetY + y.getValue(_height) - (int)(fontMetrics.getHeight() * 0.5f));
 	}
 
 	public void drawString(AttributedCharacterIterator iterator, ISizeReference x, ISizeReference y) {
 		_g.setColor(_color);
+		_g.setFont(_font);
 		_g.drawString(iterator, _offsetX + x.getValue(_width), _offsetY + y.getValue(_height));
 	}
 
@@ -170,11 +184,22 @@ public final class BetterGraphics {
 	public BetterGraphics translate(ISizeReference x, ISizeReference y) {
 		int absX = x.getValue(_width);
 		int absY = y.getValue(_height);
-		return new BetterGraphics(_g, _offsetX + absX, _offsetY + absY, _width - absX, _height - absY, _color);
+		return new BetterGraphics(_g, _offsetX + absX, _offsetY + absY, _width - absX, _height - absY, _color, _font);
+	}
+
+	public BetterGraphics clip(ISizeReference width, ISizeReference height) {
+		int absWidth = width.getValue(_width);
+		int absHeight = height.getValue(_height);
+		return new BetterGraphics(_g, _offsetX, _offsetY, absWidth, absHeight, _color, _font);
 	}
 
 	public BetterGraphics color(Color color)
 	{
-		return new BetterGraphics(_g, _offsetX, _offsetY, _width, _height, color);
+		return new BetterGraphics(_g, _offsetX, _offsetY, _width, _height, color, _font);
+	}
+
+	public BetterGraphics font(Font font)
+	{
+		return new BetterGraphics(_g, _offsetX, _offsetY, _width, _height, _color, font);
 	}
 }
