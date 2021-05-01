@@ -148,7 +148,7 @@ public final class UIPlayer extends JComponent implements IPlayer
             {
                 actionStr = "You Both Gave";
                 reward = _gameConfiguration.getBothGiveReward();
-                color = _yellow;
+                color = _green;
             }
             else if (result == MatchResult.OtherTookYouGave)
             {
