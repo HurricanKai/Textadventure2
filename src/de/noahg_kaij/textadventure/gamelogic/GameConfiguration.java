@@ -2,7 +2,7 @@ package de.noahg_kaij.textadventure.gamelogic;
 
 public final class GameConfiguration
 {
-    private int _startingMoney = 0;
+    private int _startingMoney = 10;
     private int _matchesPerRound = 5;
     private int _bothGiveReward = 2;
     private int _takingReward = 3;

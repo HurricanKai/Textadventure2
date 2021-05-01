@@ -14,8 +14,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception
     {
+        var config = new GameConfiguration();
+
         var frame = new JFrame();
-        var player = new UIPlayer();
+        var player = new UIPlayer(config);
         frame.add(player);
         frame.setSize(1000, 1000);
         frame.setVisible(true);
@@ -26,7 +28,6 @@ public class Main {
                 new UnforgivingPlayer(),
                 player
         };
-        var config = new GameConfiguration();
         var game = new Game(config, players);
         while (true)
         {

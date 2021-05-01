@@ -1,8 +1,6 @@
 package de.noahg_kaij.textadventure.user_interface;
 
-import de.noahg_kaij.textadventure.gamelogic.IInventory;
-import de.noahg_kaij.textadventure.gamelogic.IPlayer;
-import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
+import de.noahg_kaij.textadventure.gamelogic.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +17,7 @@ import java.awt.event.MouseWheelEvent;
 public final class UIPlayer extends JComponent implements IPlayer
 {
     private static final Font _mainFont = new Font("Arial", Font.PLAIN, 12);
+    private static final Font _mainFontSmall = _mainFont.deriveFont(15f);
     private static final Font _mainFontLarge = _mainFont.deriveFont(25f);
     private static final Font _mainFontMegaLarge = _mainFont.deriveFont(40f);
 
@@ -27,6 +26,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     private static final Color _red = new Color(255, 85, 64);
     private static final Color _yellow = new Color(236, 192, 91);
     private static final Color _green = new Color(114, 151, 117);
+    private static final Color _textCol = _frontCol;
 
     private static final ISizeReference _giveButtonX = new RelativeSize(0.1f);
     private static final ISizeReference _giveButtonY = new RelativeSize(0.05f);
@@ -38,14 +38,22 @@ public final class UIPlayer extends JComponent implements IPlayer
     private static final ISizeReference _keepButtonWidth = new RelativeSize(0.8f);
     private static final ISizeReference _keepButtonHeight = new RelativeSize(0.35f);
 
+    private static final ISizeReference _resultButtonX = new RelativeSize(0.2f);
+    private static final ISizeReference _resultButtonY = new RelativeSize(0.2f);
+    private static final ISizeReference _resultButtonWidth = new RelativeSize(0.6f);
+    private static final ISizeReference _resultButtonHeight = new RelativeSize(0.6f);
+
+    private final GameConfiguration _gameConfiguration;
+
     private int _currentState = 0;
     private IRoundHistory _history;
     private IInventory _inventory;
     private boolean _hasMadeDecision = false;
     private boolean _decision = false;
 
-    public UIPlayer()
+    public UIPlayer(GameConfiguration gameConfiguration)
     {
+        _gameConfiguration = gameConfiguration;
         this.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -113,16 +121,68 @@ public final class UIPlayer extends JComponent implements IPlayer
 
         if (_currentState == 0) // waiting
         {
-            betterGraphics.font(_mainFontMegaLarge).color(_frontCol).drawStringCentered("Waiting for Game to start ...", new RelativeSize(0.5f), new RelativeSize(0.5f));
+            betterGraphics.font(_mainFontMegaLarge).color(_textCol).drawString("Waiting for Round to start ...", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
         }
         else if (_currentState == 1) // needs to make a decision
         {
             left.color(_frontCol).fillRect(_giveButtonX, _giveButtonY, _giveButtonWidth, _giveButtonHeight);
             left.color(_frontCol).fillRect(_keepButtonX, _keepButtonY, _keepButtonWidth, _keepButtonHeight);
+
+            right.color(_yellow).drawString("Coins: " + _inventory.getCurrentCoins() + "/" + _inventory.getStartingCoins(), new RelativeSize(0.95f), new RelativeSize(0.01f), Anchor.Negative, Anchor.Positive);
         }
+        else if (_currentState == 2)
+        {
+            var currentIndex = _history.getCurrentMatch();
+            if (currentIndex == 0)
+            {
+                left.drawString("THIS SHOULD NOT HAVE HAPPENED", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
+                return;
+            }
+
+            var result = _history.getMatchResult(_history.getCurrentMatch() - 1);
+            String actionStr;
+            int reward;
+            // TODO: better text!
+            Color color;
+            if (result == MatchResult.BothGive)
+            {
+                actionStr = "You Both Gave";
+                reward = _gameConfiguration.getBothGiveReward();
+                color = _yellow;
+            }
+            else if (result == MatchResult.OtherTookYouGave)
+            {
+                actionStr = "Other Took, You Gave";
+                reward = _gameConfiguration.getGivingPunishment();
+                color = _red;
+            }
+            else if (result == MatchResult.OtherGaveYouTook)
+            {
+                actionStr = "Other Gave, You Took";
+                reward = _gameConfiguration.getTakingReward();
+                color = _green;
+            }
+            else if (result == MatchResult.BothTook)
+            {
+                actionStr = "You both tried taking";
+                reward = _gameConfiguration.getBothTookReward();
+                color = _red;
+            }
+            else
+            {
+                actionStr = "?????";
+                reward = 0;
+                color = _frontCol;
+            }
 
 
-        repaint();
+            left.color(color).fillRect(_resultButtonX, _resultButtonY, _resultButtonWidth, _resultButtonHeight);
+            left.color(_textCol).font(_mainFontLarge).drawString(actionStr, new RelativeSize(0.5f), new RelativeSize(0.46f), Anchor.Center, Anchor.Center);
+            left.color(_textCol).font(_mainFontLarge).drawString((reward >= 0 ? "+" : "") + reward + " Coins", new RelativeSize(0.5f), new RelativeSize(0.54f), Anchor.Center, Anchor.Center);
+            left.color(_textCol).font(_mainFontSmall).drawString("(Press to Continue)", new RelativeSize(0.5f), new AdditionSize(_resultButtonY, _resultButtonHeight), Anchor.Center, Anchor.Negative);
+
+            right.color(_yellow).drawString("Coins: " + _inventory.getCurrentCoins() + "/" + _inventory.getStartingCoins(), new RelativeSize(0.95f), new RelativeSize(0.01f), Anchor.Negative, Anchor.Positive);
+        }
     }
 
     void mouseClicked(MouseEvent e)
@@ -133,45 +193,63 @@ public final class UIPlayer extends JComponent implements IPlayer
             var x = e.getX();
             var y = e.getY();
 
-            // keep button
+            if (_currentState == 1)
             {
-                var absKeepX = _keepButtonX.getValue(this.getWidth());
-                var absKeepWidth = _keepButtonWidth.getValue((int) (this.getWidth() * 0.5f));
-                var absKeepY = _keepButtonY.getValue(this.getHeight());
-                var absKeepHeight = _keepButtonHeight.getValue(this.getHeight());
-                if (x > absKeepX && x < (absKeepX + absKeepWidth) && y > absKeepY && y < (absKeepY + absKeepHeight))
+                // keep button
                 {
-                    _decision = false;
-                    _hasMadeDecision = true;
-                    e.consume();
-                    return;
+                    var absKeepX = _keepButtonX.getValue(this.getWidth());
+                    var absKeepWidth = _keepButtonWidth.getValue((int) (this.getWidth() * 0.5f));
+                    var absKeepY = _keepButtonY.getValue(this.getHeight());
+                    var absKeepHeight = _keepButtonHeight.getValue(this.getHeight());
+                    if (x > absKeepX && x < (absKeepX + absKeepWidth) && y > absKeepY && y < (absKeepY + absKeepHeight))
+                    {
+                        _decision = false;
+                        _hasMadeDecision = true;
+                        e.consume();
+                        return;
+                    }
                 }
-            }
 
-            // give
-            {
-                var absGiveX = _giveButtonX.getValue(this.getWidth());
-                var absGiveWidth = _giveButtonWidth.getValue(this.getWidth());
-                var absGiveY = _giveButtonY.getValue(this.getHeight());
-                var absGiveHeight = _giveButtonHeight.getValue(this.getHeight());
-                if (x > absGiveX && x < (absGiveX + absGiveWidth) && y > absGiveY && y < (absGiveY + absGiveHeight))
+                // give
                 {
-                    _decision = true;
-                    _hasMadeDecision = true;
+                    var absGiveX = _giveButtonX.getValue(this.getWidth());
+                    var absGiveWidth = _giveButtonWidth.getValue(this.getWidth());
+                    var absGiveY = _giveButtonY.getValue(this.getHeight());
+                    var absGiveHeight = _giveButtonHeight.getValue(this.getHeight());
+                    if (x > absGiveX && x < (absGiveX + absGiveWidth) && y > absGiveY && y < (absGiveY + absGiveHeight))
+                    {
+                        _decision = true;
+                        _hasMadeDecision = true;
+                        e.consume();
+                        return;
+                    }
+                }
+            }
+            else if (_currentState == 2)
+            {
+                var absX = _resultButtonX.getValue(this.getWidth());
+                var absY = _resultButtonY.getValue(this.getHeight());
+                var absWidth = _resultButtonWidth.getValue(this.getWidth());
+                var absHeight = _resultButtonHeight.getValue(this.getHeight());
+                if (x > absX && x < (absX + absWidth) && y > absY && y < (absY + absHeight))
+                {
+                    _currentState = 0;
+                    repaint();
                     e.consume();
                     return;
                 }
             }
-        }
-        else if (button == MouseEvent.BUTTON2)
-        {
-            e.consume();
         }
     }
 
     @Override
     public boolean makeChoice(IRoundHistory history, IInventory inventory)
     {
+        while(_currentState != 0)
+        {
+            Thread.onSpinWait();
+        }
+
         _currentState = 1;
         _history = history;
         _inventory = inventory;
@@ -183,6 +261,9 @@ public final class UIPlayer extends JComponent implements IPlayer
         {
             Thread.onSpinWait();
         }
+
+        _currentState = 2;
+        repaint();
 
         return _decision;
     }

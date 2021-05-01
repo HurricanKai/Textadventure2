@@ -126,12 +126,39 @@ public final class BetterGraphics {
 		_g.drawString(str, _offsetX + x.getValue(_width), _offsetY + y.getValue(_height));
 	}
 
-	public void drawStringCentered(String str, ISizeReference x, ISizeReference y) {
+	public void drawString(String str, ISizeReference x, ISizeReference y, Anchor xAnchor, Anchor yAnchor) {
 		FontMetrics fontMetrics = getFontMetrics(_font);
 		int strWidth = fontMetrics.stringWidth(str);
+		int strHeight = fontMetrics.getHeight();
+		if (xAnchor == Anchor.Positive)
+		{
+			// do nothing
+		}
+		else if (xAnchor == Anchor.Center)
+		{
+			strWidth = (int) (strWidth * -0.5f);
+		}
+		else if (xAnchor == Anchor.Negative)
+		{
+			strWidth = -strWidth;
+		}
+
+		if (yAnchor == Anchor.Positive)
+		{
+			// do nothing
+		}
+		else if (yAnchor == Anchor.Center)
+		{
+			strHeight = (int) (strHeight * -0.5f);
+		}
+		else if (yAnchor == Anchor.Negative)
+		{
+			strHeight = -strHeight;
+		}
+
 		_g.setColor(_color);
 		_g.setFont(_font);
-		_g.drawString(str, _offsetX + x.getValue(_width) - (int)(strWidth * 0.5f), _offsetY + y.getValue(_height) - (int)(fontMetrics.getHeight() * 0.5f));
+		_g.drawString(str, _offsetX + x.getValue(_width) + strWidth, _offsetY + y.getValue(_height) + strHeight);
 	}
 
 	public void drawString(AttributedCharacterIterator iterator, ISizeReference x, ISizeReference y) {
