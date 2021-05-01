@@ -7,15 +7,23 @@ package de.noahg_kaij.textadventure.gamelogic;
 public enum MatchResult
 {
     /**
-     * Represents a Win
+     * Represents a match not yet played
      */
-    Win,
+    None,
     /**
-     * Represents a Trade
+     * Reached when both players give
      */
-    Trade,
+    BothGive,
     /**
-     * Represents a Loss
+     * Reached when both players took
      */
-    Loss
+    BothTook,
+    /**
+     * Reached when the other player took and the current player gave
+     */
+    OtherTookYouGave,
+    /**
+     * Reached when the other player gave and you took
+     */
+    OtherGaveYouTook
 }

@@ -8,7 +8,7 @@ import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
  * A simple bot that always holds
  * @author Kai Jellinghaus
  */
-public final class AlwaysHoldPlayer implements IPlayer
+public final class AlwaysTakePlayer implements IPlayer
 {
     @Override
     public boolean makeChoice(IRoundHistory history, IInventory inventory)
