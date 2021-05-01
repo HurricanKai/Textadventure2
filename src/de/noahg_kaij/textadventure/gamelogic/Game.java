@@ -63,25 +63,25 @@ public final class Game
                 else if (choice1)
                 {
                     inventory1._currentCoins += _configuration.getGivingPunishment();
-                    history1.nextMatch(MatchResult.OtherTookYouGave);
+                    history1.nextMatch(MatchResult.OtherHeldYouGave);
                     inventory2._currentCoins += _configuration.getTakingReward();
-                    history2.nextMatch(MatchResult.OtherGaveYouTook);
+                    history2.nextMatch(MatchResult.OtherGaveYouHeld);
                     // System.out.printf("%d%n played against %d%n and player 1 got cheated on\n", playerIndex1, playerIndex2);
                 }
                 else if (choice2)
                 {
                     inventory1._currentCoins += _configuration.getTakingReward();
-                    history1.nextMatch(MatchResult.OtherGaveYouTook);
+                    history1.nextMatch(MatchResult.OtherGaveYouHeld);
                     inventory2._currentCoins += _configuration.getGivingPunishment();
-                    history2.nextMatch(MatchResult.OtherTookYouGave);
+                    history2.nextMatch(MatchResult.OtherHeldYouGave);
                     // System.out.printf("%d%n played against %d%n and player 1 cheated on player 2\n", playerIndex1, playerIndex2);
                 }
                 else
                 {
-                    inventory1._currentCoins += _configuration.getBothTookReward();
-                    history1.nextMatch(MatchResult.BothTook);
-                    inventory1._currentCoins += _configuration.getBothTookReward();
-                    history2.nextMatch(MatchResult.BothTook);
+                    inventory1._currentCoins += _configuration.getBothHeldReward();
+                    history1.nextMatch(MatchResult.BothHeld);
+                    inventory1._currentCoins += _configuration.getBothHeldReward();
+                    history2.nextMatch(MatchResult.BothHeld);
                     // System.out.printf("%d%n played against %d%n and they both tried cheating\n", playerIndex1, playerIndex2);
                 }
             }

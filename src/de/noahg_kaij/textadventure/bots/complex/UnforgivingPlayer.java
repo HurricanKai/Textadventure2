@@ -17,7 +17,7 @@ public final class UnforgivingPlayer implements IPlayer
         boolean hasBeenBetrayed = false;
         for (int i = 0; i < history.getCurrentMatch(); i++)
         {
-            if (history.getMatchResult(i) == MatchResult.OtherTookYouGave || history.getMatchResult(i) == MatchResult.BothTook)
+            if (history.getMatchResult(i) == MatchResult.OtherHeldYouGave || history.getMatchResult(i) == MatchResult.BothHeld)
             {
                 hasBeenBetrayed = true;
                 break;

@@ -15,15 +15,15 @@ public enum MatchResult
      */
     BothGive,
     /**
-     * Reached when both players took
+     * Reached when both players held
      */
-    BothTook,
+    BothHeld,
     /**
-     * Reached when the other player took and the current player gave
+     * Reached when the other player held and the current player gave
      */
-    OtherTookYouGave,
+    OtherHeldYouGave,
     /**
-     * Reached when the other player gave and you took
+     * Reached when the other player gave and you held
      */
-    OtherGaveYouTook
+    OtherGaveYouHeld
 }

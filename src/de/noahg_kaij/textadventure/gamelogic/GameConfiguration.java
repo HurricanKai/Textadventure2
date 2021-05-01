@@ -7,7 +7,7 @@ public final class GameConfiguration
     private int _bothGiveReward = 2;
     private int _takingReward = 3;
     private int _givingPunishment = -1;
-    private int _bothTookReward = 0;
+    private int _bothHeldReward = 0;
 
     /**
      * @return The amount of money each player starts with
@@ -58,7 +58,7 @@ public final class GameConfiguration
     }
 
     /**
-     * @return The reward given to the player that took when the other gave
+     * @return The reward given to the player that held when the other gave
      */
     public int getTakingReward()
     {
@@ -66,7 +66,7 @@ public final class GameConfiguration
     }
 
     /**
-     * @param takingReward The reward given to the player that took when the other gave
+     * @param takingReward The reward given to the player that held when the other gave
      */
     public void setTakingReward(int takingReward)
     {
@@ -74,7 +74,7 @@ public final class GameConfiguration
     }
 
     /**
-     * @return The punishment given to the player that gave when the other took
+     * @return The punishment given to the player that gave when the other held
      */
     public int getGivingPunishment()
     {
@@ -82,7 +82,7 @@ public final class GameConfiguration
     }
 
     /**
-     * @param givingPunishment The punishment given to the player that gave when the other took
+     * @param givingPunishment The punishment given to the player that gave when the other held
      */
     public void setGivingPunishment(int givingPunishment)
     {
@@ -90,18 +90,18 @@ public final class GameConfiguration
     }
 
     /**
-     * @return The reward given to both players when both took
+     * @return The reward given to both players when both held
      */
-    public int getBothTookReward()
+    public int getBothHeldReward()
     {
-        return _bothTookReward;
+        return _bothHeldReward;
     }
 
     /**
-     * @param bothTookReward The reward given to both players when both took
+     * @param bothHeldReward The reward given to both players when both held
      */
-    public void setBothTookReward(int bothTookReward)
+    public void setBothHeldReward(int bothHeldReward)
     {
-        this._bothTookReward = bothTookReward;
+        this._bothHeldReward = bothHeldReward;
     }
 }

@@ -132,6 +132,8 @@ public final class UIPlayer extends JComponent implements IPlayer
         }
         else if (_currentState == 2)
         {
+            // TODO: on the last round, this will happen, since _history has already been overriden and the last match will never display
+
             var currentIndex = _history.getCurrentMatch();
             if (currentIndex == 0)
             {
@@ -150,22 +152,22 @@ public final class UIPlayer extends JComponent implements IPlayer
                 reward = _gameConfiguration.getBothGiveReward();
                 color = _green;
             }
-            else if (result == MatchResult.OtherTookYouGave)
+            else if (result == MatchResult.OtherHeldYouGave)
             {
-                actionStr = "Other Took, You Gave";
+                actionStr = "Other Held, You Gave";
                 reward = _gameConfiguration.getGivingPunishment();
                 color = _red;
             }
-            else if (result == MatchResult.OtherGaveYouTook)
+            else if (result == MatchResult.OtherGaveYouHeld)
             {
-                actionStr = "Other Gave, You Took";
+                actionStr = "Other Gave, You Held";
                 reward = _gameConfiguration.getTakingReward();
                 color = _green;
             }
-            else if (result == MatchResult.BothTook)
+            else if (result == MatchResult.BothHeld)
             {
                 actionStr = "You both tried taking";
-                reward = _gameConfiguration.getBothTookReward();
+                reward = _gameConfiguration.getBothHeldReward();
                 color = _red;
             }
             else
