@@ -13,7 +13,7 @@ public enum MatchResult
     /**
      * Reached when both players give
      */
-    BothGive,
+    BothGave,
     /**
      * Reached when both players held
      */

@@ -55,9 +55,9 @@ public final class Game
                 if (choice1 && choice2)
                 {
                     inventory1._currentCoins += _configuration.getBothGiveReward();
-                    history1.nextMatch(MatchResult.BothGive);
+                    history1.nextMatch(MatchResult.BothGave);
                     inventory2._currentCoins += _configuration.getBothGiveReward();
-                    history2.nextMatch(MatchResult.BothGive);
+                    history2.nextMatch(MatchResult.BothGave);
                     // System.out.printf("%d%n played against %d%n and both gave\n", playerIndex1, playerIndex2);
                 }
                 else if (choice1)

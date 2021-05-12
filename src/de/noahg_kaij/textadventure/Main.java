@@ -2,7 +2,7 @@ package de.noahg_kaij.textadventure;
 
 import de.noahg_kaij.textadventure.bots.complex.UnforgivingPlayer;
 import de.noahg_kaij.textadventure.bots.simple.AlwaysGivePlayer;
-import de.noahg_kaij.textadventure.bots.simple.AlwaysTakePlayer;
+import de.noahg_kaij.textadventure.bots.simple.AlwaysHoldPlayer;
 import de.noahg_kaij.textadventure.gamelogic.Game;
 import de.noahg_kaij.textadventure.gamelogic.GameConfiguration;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
@@ -24,7 +24,7 @@ public class Main {
 
         var players = new IPlayer[] {
                 new AlwaysGivePlayer(),
-                new AlwaysTakePlayer(),
+                new AlwaysHoldPlayer(),
                 new UnforgivingPlayer(),
                 player
         };
