@@ -1,6 +1,6 @@
 package de.noahg_kaij.textadventure;
 
-import de.noahg_kaij.textadventure.bots.complex.UnforgivingPlayer;
+import de.noahg_kaij.textadventure.bots.simple.UnforgivingPlayer;
 import de.noahg_kaij.textadventure.bots.simple.AlwaysGivePlayer;
 import de.noahg_kaij.textadventure.bots.simple.AlwaysHoldPlayer;
 import de.noahg_kaij.textadventure.gamelogic.Game;

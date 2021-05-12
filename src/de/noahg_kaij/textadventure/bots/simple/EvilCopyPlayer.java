@@ -1,10 +1,12 @@
-package de.noahg_kaij.textadventure.bots.complex;
+package de.noahg_kaij.textadventure.bots.simple;
+
+import de.noahg_kaij.textadventure.bots.simple.BaseCopyPlayer;
 
 /**
  * evil version of {@link BaseCopyPlayer}, first choice always hold
  * @author noahg
  */
-public class EvilCopyPlayer extends BaseCopyPlayer
+public final class EvilCopyPlayer extends BaseCopyPlayer
 {
 
     @Override

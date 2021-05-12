@@ -1,4 +1,4 @@
-package de.noahg_kaij.textadventure.bots.complex;
+package de.noahg_kaij.textadventure.bots.simple;
 
 import de.noahg_kaij.textadventure.gamelogic.IInventory;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
@@ -23,7 +23,6 @@ public final class UnforgivingPlayer implements IPlayer
                 break;
             }
         }
-
         return !hasBeenBetrayed;
     }
 }
