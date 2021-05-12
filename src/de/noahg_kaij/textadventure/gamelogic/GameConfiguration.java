@@ -1,5 +1,9 @@
 package de.noahg_kaij.textadventure.gamelogic;
 
+/**
+ * Represents a game configuration to use with {@link Game}
+ * @author Kai Jellinghaus
+ */
 public final class GameConfiguration
 {
     private int _startingMoney = 10;
