@@ -1,7 +1,9 @@
 package de.noahg_kaij.textadventure.user_interface;
 
-import java.awt.*;
-
+/**
+ * A class representing a Button
+ * @author Kai Jellinghaus
+ */
 public final class Button
 {
     private final ISizeReference _x;
@@ -9,6 +11,13 @@ public final class Button
     private final ISizeReference _width;
     private final ISizeReference _height;
 
+    /**
+     * Creates a new Button
+     * @param x the x-axis offset
+     * @param y the y-axis offset
+     * @param width the x-axis size
+     * @param height the y-axis size
+     */
     public Button(ISizeReference x, ISizeReference y, ISizeReference width, ISizeReference height)
     {
         _x = x;
@@ -17,6 +26,10 @@ public final class Button
         _height = height;
     }
 
+    /**
+     * Draws the Button
+     * @param graphics the graphics instanhce to draw to
+     */
     public void draw(BetterGraphics graphics)
     {
         graphics.fillRect(_x, _y, _width, _height);
@@ -31,21 +44,37 @@ public final class Button
         return x > absKeepX && x < (absKeepX + absKeepWidth) && y > absKeepY && y < (absKeepY + absKeepHeight);
     }
 
+    /**
+     * Gets the X-Axis offset
+     * @return The X-Axis offset
+     */
     public ISizeReference getX()
     {
         return _x;
     }
 
+    /**
+     * Gets the Y-Axis offset
+     * @return The Y-Axis offset
+     */
     public ISizeReference getY()
     {
         return _y;
     }
 
+    /**
+     * Gets the X-Axis Size
+     * @return The X-Axis Size
+     */
     public ISizeReference getWidth()
     {
         return _width;
     }
 
+    /**
+     * Gets the Y-Axis Size
+     * @return The Y-Axis Size
+     */
     public ISizeReference getHeight()
     {
         return _height;

@@ -117,6 +117,7 @@ public final class Game
         private final int _maxMatch;
         private int _currentMatch = 0;
         private final MatchResult[] _results;
+        private MatchResult _lastRoundLastMatch;
 
         private HistoryImpl(int maxMatch)
         {
@@ -142,9 +143,16 @@ public final class Game
             return _results[index];
         }
 
+        @Override
+        public MatchResult getLastRoundLastMatch()
+        {
+            return _lastRoundLastMatch;
+        }
+
         public void reset()
         {
             _currentMatch = 0;
+            _lastRoundLastMatch = _results[_maxMatch - 1];
             for (int i = 0; i < _maxMatch; i++)
                 _results[i] = MatchResult.None;
         }

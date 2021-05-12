@@ -23,4 +23,10 @@ public interface IRoundHistory
      * @throws IndexOutOfBoundsException when {@param index} is less then 0 or larger or equal {@link #getMaxMatch()}
      */
     MatchResult getMatchResult(int index);
+
+    /**
+     * Retrieves the last rounds last match result
+     * @return The retrieved result
+     */
+    MatchResult getLastRoundLastMatch();
 }

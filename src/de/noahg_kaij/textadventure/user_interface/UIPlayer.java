@@ -124,16 +124,16 @@ public final class UIPlayer extends JComponent implements IPlayer
         }
         else if (_currentState == 2)
         {
-            // TODO: on the last round, this will happen, since _history has already been overriden and the last match will never display
-
             var currentIndex = _history.getCurrentMatch();
+            MatchResult result;
             if (currentIndex == 0)
             {
-                left.drawString("THIS SHOULD NOT HAVE HAPPENED", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
-                return;
+                result = _history.getLastRoundLastMatch();
             }
-
-            var result = _history.getMatchResult(_history.getCurrentMatch() - 1);
+            else
+            {
+                result = _history.getMatchResult(_history.getCurrentMatch() - 1);
+            }
             String actionStr;
             int reward;
             // TODO: better text!
