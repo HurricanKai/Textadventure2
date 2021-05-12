@@ -1,5 +1,8 @@
 package de.noahg_kaij.textadventure.user_interface;
 
+/**
+ * Represents a size reference which is the sum of two other size references
+ */
 public final class AdditionSize implements ISizeReference
 {
     private final ISizeReference _a;
