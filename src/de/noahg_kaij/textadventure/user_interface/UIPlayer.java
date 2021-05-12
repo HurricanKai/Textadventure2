@@ -43,6 +43,10 @@ public final class UIPlayer extends JComponent implements IPlayer
     private boolean _hasMadeDecision = false;
     private boolean _decision = false;
 
+    /**
+     * Initializes a new UIPlayer with the given configuration
+     * @param gameConfiguration The configuration to use
+     */
     public UIPlayer(GameConfiguration gameConfiguration)
     {
         _gameConfiguration = gameConfiguration;
