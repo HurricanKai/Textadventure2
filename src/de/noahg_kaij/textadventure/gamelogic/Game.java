@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * A class representing a Game, player over multiple matches, with each match containing multiple rounds
+ * @author Kai Jellinghaus
+ */
 public final class Game
 {
     private final GameConfiguration _configuration;
@@ -13,6 +17,13 @@ public final class Game
     private final int[] _playerIndices;
     private final Random _random;
 
+    /**
+     * Creates a new Game instance when with a given configuration and the players to participate
+     * Player number must be even
+     * @param configuration The configuration to use
+     * @param players The players to participate in this game, length must be even
+     * @throws Exception when the player count isn't even
+     */
     public Game(GameConfiguration configuration, IPlayer[] players) throws Exception
     {
         if (players.length % 2 != 0)
