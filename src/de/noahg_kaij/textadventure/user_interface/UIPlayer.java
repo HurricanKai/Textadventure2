@@ -28,20 +28,12 @@ public final class UIPlayer extends JComponent implements IPlayer
     private static final Color _green = new Color(114, 151, 117);
     private static final Color _textCol = _frontCol;
 
-    private static final ISizeReference _giveButtonX = new RelativeSize(0.1f);
-    private static final ISizeReference _giveButtonY = new RelativeSize(0.05f);
-    private static final ISizeReference _giveButtonWidth = new RelativeSize(0.8f);
-    private static final ISizeReference _giveButtonHeight = new RelativeSize(0.35f);
-
-    private static final ISizeReference _keepButtonX = new RelativeSize(0.1f);
-    private static final ISizeReference _keepButtonY = new RelativeSize(0.55f);
-    private static final ISizeReference _keepButtonWidth = new RelativeSize(0.8f);
-    private static final ISizeReference _keepButtonHeight = new RelativeSize(0.35f);
-
-    private static final ISizeReference _resultButtonX = new RelativeSize(0.2f);
-    private static final ISizeReference _resultButtonY = new RelativeSize(0.2f);
-    private static final ISizeReference _resultButtonWidth = new RelativeSize(0.6f);
-    private static final ISizeReference _resultButtonHeight = new RelativeSize(0.6f);
+    private static final Button _giveButton = new Button(new RelativeSize(0.1f), new RelativeSize(0.05f),
+            new RelativeSize(0.8f), new RelativeSize(0.35f));
+    private static final Button _keepButton = new Button(new RelativeSize(0.1f), new RelativeSize(0.55f),
+            new RelativeSize(0.8f), new RelativeSize(0.35f));
+    private static final Button _resultButton = new Button(new RelativeSize(0.2f), new RelativeSize(0.2f),
+            new RelativeSize(0.6f), new RelativeSize(0.6f));
 
     private final GameConfiguration _gameConfiguration;
 
@@ -125,8 +117,8 @@ public final class UIPlayer extends JComponent implements IPlayer
         }
         else if (_currentState == 1) // needs to make a decision
         {
-            left.color(_frontCol).fillRect(_giveButtonX, _giveButtonY, _giveButtonWidth, _giveButtonHeight);
-            left.color(_frontCol).fillRect(_keepButtonX, _keepButtonY, _keepButtonWidth, _keepButtonHeight);
+            _giveButton.draw(left.color(_frontCol));
+            _keepButton.draw(left.color(_frontCol));
 
             right.color(_yellow).drawString("Coins: " + _inventory.getCurrentCoins() + "/" + _inventory.getStartingCoins(), new RelativeSize(0.95f), new RelativeSize(0.01f), Anchor.Negative, Anchor.Positive);
         }
@@ -178,10 +170,10 @@ public final class UIPlayer extends JComponent implements IPlayer
             }
 
 
-            left.color(color).fillRect(_resultButtonX, _resultButtonY, _resultButtonWidth, _resultButtonHeight);
+            _resultButton.draw(left.color(color));
             left.color(_textCol).font(_mainFontLarge).drawString(actionStr, new RelativeSize(0.5f), new RelativeSize(0.46f), Anchor.Center, Anchor.Center);
             left.color(_textCol).font(_mainFontLarge).drawString((reward >= 0 ? "+" : "") + reward + " Coins", new RelativeSize(0.5f), new RelativeSize(0.54f), Anchor.Center, Anchor.Center);
-            left.color(_textCol).font(_mainFontSmall).drawString("(Press to Continue)", new RelativeSize(0.5f), new AdditionSize(_resultButtonY, _resultButtonHeight), Anchor.Center, Anchor.Negative);
+            left.color(_textCol).font(_mainFontSmall).drawString("(Press to Continue)", new RelativeSize(0.5f), new AdditionSize(_resultButton.getY(), _resultButton.getHeight()), Anchor.Center, Anchor.Negative);
 
             right.color(_yellow).drawString("Coins: " + _inventory.getCurrentCoins() + "/" + _inventory.getStartingCoins(), new RelativeSize(0.95f), new RelativeSize(0.01f), Anchor.Negative, Anchor.Positive);
         }
@@ -197,43 +189,25 @@ public final class UIPlayer extends JComponent implements IPlayer
 
             if (_currentState == 1)
             {
-                // keep button
+                if (_keepButton.contains(x, y, this.getWidth(), this.getHeight()))
                 {
-                    var absKeepX = _keepButtonX.getValue(this.getWidth());
-                    var absKeepWidth = _keepButtonWidth.getValue((int) (this.getWidth() * 0.5f));
-                    var absKeepY = _keepButtonY.getValue(this.getHeight());
-                    var absKeepHeight = _keepButtonHeight.getValue(this.getHeight());
-                    if (x > absKeepX && x < (absKeepX + absKeepWidth) && y > absKeepY && y < (absKeepY + absKeepHeight))
-                    {
-                        _decision = false;
-                        _hasMadeDecision = true;
-                        e.consume();
-                        return;
-                    }
+                    _decision = false;
+                    _hasMadeDecision = true;
+                    e.consume();
+                    return;
                 }
 
-                // give
+                if (_giveButton.contains(x, y, this.getWidth(), this.getHeight()))
                 {
-                    var absGiveX = _giveButtonX.getValue(this.getWidth());
-                    var absGiveWidth = _giveButtonWidth.getValue(this.getWidth());
-                    var absGiveY = _giveButtonY.getValue(this.getHeight());
-                    var absGiveHeight = _giveButtonHeight.getValue(this.getHeight());
-                    if (x > absGiveX && x < (absGiveX + absGiveWidth) && y > absGiveY && y < (absGiveY + absGiveHeight))
-                    {
-                        _decision = true;
-                        _hasMadeDecision = true;
-                        e.consume();
-                        return;
-                    }
+                    _decision = true;
+                    _hasMadeDecision = true;
+                    e.consume();
+                    return;
                 }
             }
             else if (_currentState == 2)
             {
-                var absX = _resultButtonX.getValue(this.getWidth());
-                var absY = _resultButtonY.getValue(this.getHeight());
-                var absWidth = _resultButtonWidth.getValue(this.getWidth());
-                var absHeight = _resultButtonHeight.getValue(this.getHeight());
-                if (x > absX && x < (absX + absWidth) && y > absY && y < (absY + absHeight))
+                if (_resultButton.contains(x, y, this.getWidth(), this.getHeight()))
                 {
                     _currentState = 0;
                     repaint();
