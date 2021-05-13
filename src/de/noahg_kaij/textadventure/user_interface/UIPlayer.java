@@ -26,7 +26,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     private static final Color _red = new Color(255, 85, 64);
     private static final Color _yellow = new Color(236, 192, 91);
     private static final Color _green = new Color(114, 151, 117);
-    private static final Color _textCol = _frontCol;
+    private static final Color _textCol = new Color(182, 249, 255);
 
     private static final Button _giveButton = new Button(new RelativeSize(0.1f), new RelativeSize(0.05f),
             new RelativeSize(0.8f), new RelativeSize(0.35f));
@@ -122,7 +122,11 @@ public final class UIPlayer extends JComponent implements IPlayer
         else if (_currentState == 1) // needs to make a decision
         {
             _giveButton.draw(left.color(_frontCol));
+            _giveButton.getContentGraphics(left).color(_textCol).font(_mainFontLarge).drawString("(Give Coin)", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
+
             _keepButton.draw(left.color(_frontCol));
+            _keepButton.getContentGraphics(left).color(_textCol).font(_mainFontLarge).drawString("(Hold Coin)", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
+
 
             right.color(_yellow).drawString("Coins: " + _inventory.getCurrentCoins() + "/" + _inventory.getStartingCoins(), new RelativeSize(0.95f), new RelativeSize(0.01f), Anchor.Negative, Anchor.Positive);
         }

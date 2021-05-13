@@ -3,6 +3,7 @@ package de.noahg_kaij.textadventure.user_interface;
 /**
  * A class representing a Button
  * @author Kai Jellinghaus
+ * @author noahg
  */
 public final class Button
 {
@@ -42,6 +43,16 @@ public final class Button
         var absKeepY = _y.getValue(relativeY);
         var absKeepHeight = _height.getValue(relativeY);
         return x > absKeepX && x < (absKeepX + absKeepWidth) && y > absKeepY && y < (absKeepY + absKeepHeight);
+    }
+
+    /**
+     * returns a graphic instance inside the button
+     * @param g used graphic instance
+     * @return g modified graphic instance
+     */
+    public BetterGraphics getContentGraphics(BetterGraphics g)
+    {
+        return g.translate(_x, _y).clip(_width, _height);
     }
 
     /**
