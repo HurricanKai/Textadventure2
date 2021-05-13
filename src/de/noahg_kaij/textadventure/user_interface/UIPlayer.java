@@ -13,6 +13,7 @@ import java.awt.event.MouseWheelEvent;
  * An implementation of {@link de.noahg_kaij.textadventure.gamelogic.IPlayer} using UI displayed to the user.
  * This class only serves as the in-game UI. The menu, game mode selection, rule config, etc. are different, and do not interact with {@link de.noahg_kaij.textadventure.gamelogic} directly.
  * @author Kai Jellinghaus
+ * @author noahg
  */
 public final class UIPlayer extends JComponent implements IPlayer
 {
