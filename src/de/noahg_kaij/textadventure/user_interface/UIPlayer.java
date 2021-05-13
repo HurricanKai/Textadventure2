@@ -177,7 +177,7 @@ public final class UIPlayer extends JComponent implements IPlayer
             _resultButton.draw(left.color(color));
             left.color(_textCol).font(_mainFontLarge).drawString(actionStr, new RelativeSize(0.5f), new RelativeSize(0.46f), Anchor.Center, Anchor.Center);
             left.color(_textCol).font(_mainFontLarge).drawString((reward >= 0 ? "+" : "") + reward + " Coins", new RelativeSize(0.5f), new RelativeSize(0.54f), Anchor.Center, Anchor.Center);
-            left.color(_textCol).font(_mainFontSmall).drawString("(Press to Continue)", new RelativeSize(0.5f), new AdditionSize(_resultButton.getY(), _resultButton.getHeight()), Anchor.Center, Anchor.Negative);
+            left.color(_textCol).font(_mainFontSmall).drawString("(Click to Continue)", new RelativeSize(0.5f), new AdditionSize(_resultButton.getY(), _resultButton.getHeight()), Anchor.Center, Anchor.Negative);
 
             right.color(_yellow).drawString("Coins: " + _inventory.getCurrentCoins() + "/" + _inventory.getStartingCoins(), new RelativeSize(0.95f), new RelativeSize(0.01f), Anchor.Negative, Anchor.Positive);
         }
@@ -193,7 +193,7 @@ public final class UIPlayer extends JComponent implements IPlayer
 
             if (_currentState == 1)
             {
-                if (_keepButton.contains(x, y, this.getWidth(), this.getHeight()))
+                if (_keepButton.contains(x, y, (int)(this.getWidth() * 0.5f), this.getHeight()))
                 {
                     _decision = false;
                     _hasMadeDecision = true;
@@ -201,7 +201,7 @@ public final class UIPlayer extends JComponent implements IPlayer
                     return;
                 }
 
-                if (_giveButton.contains(x, y, this.getWidth(), this.getHeight()))
+                if (_giveButton.contains(x, y, (int) (this.getWidth() * 0.5f), this.getHeight()))
                 {
                     _decision = true;
                     _hasMadeDecision = true;
@@ -211,7 +211,7 @@ public final class UIPlayer extends JComponent implements IPlayer
             }
             else if (_currentState == 2)
             {
-                if (_resultButton.contains(x, y, this.getWidth(), this.getHeight()))
+                if (_resultButton.contains(x, y, (int) (this.getWidth() * 0.5f), this.getHeight()))
                 {
                     _currentState = 0;
                     repaint();

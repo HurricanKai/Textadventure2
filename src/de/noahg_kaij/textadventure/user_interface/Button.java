@@ -38,7 +38,7 @@ public final class Button
     public boolean contains(int x, int y, int relativeX, int relativeY)
     {
         var absKeepX = _x.getValue(relativeX);
-        var absKeepWidth = _width.getValue((int) (relativeX * 0.5f));
+        var absKeepWidth = _width.getValue(relativeX);
         var absKeepY = _y.getValue(relativeY);
         var absKeepHeight = _height.getValue(relativeY);
         return x > absKeepX && x < (absKeepX + absKeepWidth) && y > absKeepY && y < (absKeepY + absKeepHeight);
