@@ -1,4 +1,4 @@
-package de.noahg_kaij.textadventure.bots.complex;
+package de.noahg_kaij.textadventure.bots.simple;
 
 import de.noahg_kaij.textadventure.gamelogic.IInventory;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
@@ -16,16 +16,7 @@ public abstract class BaseCopyPlayer implements IPlayer
     {
         if (history.getCurrentMatch() > 0)
         {
-            switch (history.getMatchResult(history.getCurrentMatch() - 1))
-            {
-                case BothHeld:
-                case OtherHeldYouGave:
-                    return false;
-
-                case BothGave:
-                case OtherGaveYouHeld:
-                    return true;
-            }
+            return  history.getMatchResult(history.getCurrentMatch() - 1).otherGave;
         }
         return defaultChoice();
     }

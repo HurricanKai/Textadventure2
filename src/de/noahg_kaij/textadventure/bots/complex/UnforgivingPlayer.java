@@ -23,7 +23,6 @@ public final class UnforgivingPlayer implements IPlayer
                 break;
             }
         }
-
         return !hasBeenBetrayed;
     }
 }
