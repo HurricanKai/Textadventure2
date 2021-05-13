@@ -1,8 +1,7 @@
 package de.noahg_kaij.textadventure;
 
 import de.noahg_kaij.textadventure.bots.complex.UnforgivingPlayer;
-import de.noahg_kaij.textadventure.bots.simple.AlwaysGivePlayer;
-import de.noahg_kaij.textadventure.bots.simple.AlwaysHoldPlayer;
+import de.noahg_kaij.textadventure.bots.simple.*;
 import de.noahg_kaij.textadventure.gamelogic.Game;
 import de.noahg_kaij.textadventure.gamelogic.GameConfiguration;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
@@ -26,6 +25,10 @@ public class Main {
                 new AlwaysGivePlayer(),
                 new AlwaysHoldPlayer(),
                 new UnforgivingPlayer(),
+                new EvilCopyPlayer(),
+                new NiceCopyPlayer(),
+                new InversePlayer(),
+                new SwapPlayer(),
                 player
         };
         var game = new Game(config, players);

@@ -28,7 +28,7 @@ public final class Button
 
     /**
      * Draws the Button
-     * @param graphics the graphics instanhce to draw to
+     * @param graphics the graphics instance to draw to
      */
     public void draw(BetterGraphics graphics)
     {
