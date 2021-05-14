@@ -11,8 +11,15 @@ import de.noahg_kaij.textadventure.gamelogic.MatchResult;
  */
 public final class UnforgivingPlayer implements IPlayer
 {
+
     @Override
-    public boolean makeChoice(IRoundHistory history, IInventory inventory)
+    public String getDebugName()
+    {
+        return "unforgiving";
+    }
+
+    @Override
+    public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
     {
         boolean hasBeenBetrayed = false;
         for (int i = 0; i < history.getCurrentMatch(); i++)

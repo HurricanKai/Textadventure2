@@ -8,6 +8,11 @@ import de.noahg_kaij.textadventure.bots.simple.BaseCopyPlayer;
  */
 public final class EvilCopyPlayer extends BaseCopyPlayer
 {
+    @Override
+    public String getDebugName()
+    {
+        return "evil copy";
+    }
 
     @Override
     protected boolean defaultChoice()

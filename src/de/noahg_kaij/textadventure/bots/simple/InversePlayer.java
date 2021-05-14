@@ -11,7 +11,13 @@ import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
 public final class InversePlayer implements IPlayer
 {
     @Override
-    public boolean makeChoice(IRoundHistory history, IInventory inventory)
+    public String getDebugName()
+    {
+        return "inverse";
+    }
+
+    @Override
+    public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
     {
         if (history.getCurrentMatch() > 0)
         {

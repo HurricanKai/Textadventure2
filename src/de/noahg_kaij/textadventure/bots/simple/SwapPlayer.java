@@ -11,7 +11,13 @@ import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
 public class SwapPlayer implements IPlayer
 {
     @Override
-    public boolean makeChoice(IRoundHistory history, IInventory inventory)
+    public String getDebugName()
+    {
+        return "swap";
+    }
+
+    @Override
+    public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
     {
         if(history.getCurrentMatch() > 0)
         {

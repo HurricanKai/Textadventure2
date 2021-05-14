@@ -12,7 +12,7 @@ public abstract class BaseCopyPlayer implements IPlayer
 {
 
     @Override
-    public boolean makeChoice(IRoundHistory history, IInventory inventory)
+    public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
     {
         if (history.getCurrentMatch() > 0)
         {

@@ -11,7 +11,13 @@ import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
 public final class AlwaysGivePlayer implements IPlayer
 {
     @Override
-    public boolean makeChoice(IRoundHistory history, IInventory inventory)
+    public String getDebugName()
+    {
+        return "always give";
+    }
+
+    @Override
+    public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
     {
         return true;
     }

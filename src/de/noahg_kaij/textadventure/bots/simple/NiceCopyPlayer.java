@@ -9,6 +9,12 @@ import de.noahg_kaij.textadventure.bots.simple.BaseCopyPlayer;
 public final class NiceCopyPlayer extends BaseCopyPlayer
 {
     @Override
+    public String getDebugName()
+    {
+        return "nice copy";
+    }
+
+    @Override
     protected boolean defaultChoice()
     {
         return true;

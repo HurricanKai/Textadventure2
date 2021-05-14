@@ -21,6 +21,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     private static final Font _mainFontSmall = _mainFont.deriveFont(15f);
     private static final Font _mainFontLarge = _mainFont.deriveFont(25f);
     private static final Font _mainFontMegaLarge = _mainFont.deriveFont(40f);
+    private static final Font _debugFont = new Font("Monospaced", Font.PLAIN, 40);
 
     private static final Color _backCol = new Color(39, 41, 50);
     private static final Color _frontCol = new Color(72, 61, 63);
@@ -43,6 +44,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     private IInventory _inventory;
     private boolean _hasMadeDecision = false;
     private boolean _decision = false;
+    private IPlayer _enemy;
 
     /**
      * Initializes a new UIPlayer with the given configuration
@@ -115,6 +117,10 @@ public final class UIPlayer extends JComponent implements IPlayer
         betterGraphics = betterGraphics.translate(new AbsoluteSize(bounds.x), new AbsoluteSize(bounds.y)).clip(new AbsoluteSize(bounds.width), new AbsoluteSize(bounds.height));
         var left = betterGraphics.clip(new RelativeSize(0.5f), new RelativeSize(1.0f));
         var right = betterGraphics.translate(new RelativeSize(0.5f), new AbsoluteSize(0));
+        var debugName = "NULL";
+        if (_enemy != null)
+            debugName = _enemy.getDebugName();
+        right.font(_debugFont).color(Color.pink).drawString(debugName, new RelativeSize(0.99f), new RelativeSize(0.1f), Anchor.Negative, Anchor.Center);
 
         if (_currentState == 0) // waiting
         {
@@ -123,13 +129,13 @@ public final class UIPlayer extends JComponent implements IPlayer
         else if (_currentState == 1) // needs to make a decision
         {
             _giveButton.draw(left.color(_frontCol));
-            _giveButton.getContentGraphics(left).color(_textCol).font(_mainFontLarge).drawString("(Give Coin)", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
+            _giveButton.getContentGraphics(left).color(_textCol).font(_mainFontLarge).drawString("Give Coin", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
 
             _keepButton.draw(left.color(_frontCol));
-            _keepButton.getContentGraphics(left).color(_textCol).font(_mainFontLarge).drawString("(Hold Coin)", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
+            _keepButton.getContentGraphics(left).color(_textCol).font(_mainFontLarge).drawString("Hold Coin", new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
 
 
-            right.color(_yellow).drawString("Coins: " + _inventory.getCurrentCoins() + "/" + _inventory.getStartingCoins(), new RelativeSize(0.95f), new RelativeSize(0.01f), Anchor.Negative, Anchor.Positive);
+            right.color(_yellow).font(_mainFontLarge).drawString("Coins: " + _inventory.getCurrentCoins() + "/" + _inventory.getStartingCoins(), new RelativeSize(0.95f), new RelativeSize(0.01f), Anchor.Negative, Anchor.Positive);
         }
         else if (_currentState == 2)
         {
@@ -228,7 +234,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     }
 
     @Override
-    public boolean makeChoice(IRoundHistory history, IInventory inventory)
+    public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
     {
         while(_currentState != 0)
         {
@@ -238,6 +244,7 @@ public final class UIPlayer extends JComponent implements IPlayer
         _currentState = 1;
         _history = history;
         _inventory = inventory;
+        _enemy = enemy;
         repaint();
 
         _hasMadeDecision = false;
@@ -251,5 +258,11 @@ public final class UIPlayer extends JComponent implements IPlayer
         repaint();
 
         return _decision;
+    }
+
+    @Override
+    public String getDebugName()
+    {
+        return "REAL PLAYER";
     }
 }

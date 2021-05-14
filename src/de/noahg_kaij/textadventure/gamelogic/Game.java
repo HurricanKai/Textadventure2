@@ -1,5 +1,6 @@
 package de.noahg_kaij.textadventure.gamelogic;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
@@ -14,7 +15,7 @@ public final class Game
     private final IPlayer[] _players;
     private final InventoryImpl[] _inventories;
     private final HistoryImpl[] _histories;
-    private final int[] _playerIndices;
+    private final ArrayList<Integer> _playerIndices;
     private final Random _random;
 
     /**
@@ -32,11 +33,11 @@ public final class Game
         _configuration = configuration;
         _players = players;
         _inventories = new InventoryImpl[players.length];
-        _playerIndices = new int[players.length];
+        _playerIndices = new ArrayList<>(players.length);
         _histories = new HistoryImpl[players.length];
         for (int i = 0; i < _inventories.length; i++)
         {
-            _playerIndices[i] = i;
+            _playerIndices.add(i);
             _histories[i] = new HistoryImpl(_configuration.getMatchesPerRound());
             _inventories[i] = new InventoryImpl(_configuration.getStartingMoney());
         }
@@ -45,24 +46,25 @@ public final class Game
 
     public void playRound()
     {
-        Collections.shuffle(Arrays.asList(_playerIndices), _random);
+        var v = _playerIndices;
+        Collections.shuffle(v, _random);
         for (HistoryImpl history : _histories) history.reset();
 
         for (int i = 0; i < _configuration.getMatchesPerRound(); i++)
         {
             for (int j = 0; j < _players.length; j += 2)
             {
-                var playerIndex1 = _playerIndices[j];
+                var playerIndex1 = _playerIndices.get(j);
                 var player1 = _players[playerIndex1];
                 var history1 = _histories[playerIndex1];
                 var inventory1 = _inventories[playerIndex1];
-                var playerIndex2 = _playerIndices[j + 1];
+                var playerIndex2 = _playerIndices.get(j + 1);
                 var player2 = _players[playerIndex2];
                 var history2 = _histories[playerIndex2];
                 var inventory2 = _inventories[playerIndex2];
 
-                var choice1 = player1.makeChoice(history1, inventory1);
-                var choice2 = player2.makeChoice(history2, inventory2);
+                var choice1 = player1.makeChoice(history1, inventory1, player2);
+                var choice2 = player2.makeChoice(history2, inventory2, player1);
                 if (choice1 && choice2)
                 {
                     inventory1._currentCoins += _configuration.getBothGiveReward();
