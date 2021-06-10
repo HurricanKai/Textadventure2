@@ -32,4 +32,16 @@ public final class UnforgivingPlayer implements IPlayer
         }
         return !hasBeenBetrayed;
     }
+
+    @Override
+    public void preRound(IPlayer enemy)
+    {
+
+    }
+
+    @Override
+    public void postRound(IPlayer enemy, MatchResult matchResult)
+    {
+
+    }
 }

@@ -3,6 +3,7 @@ package de.noahg_kaij.textadventure.bots;
 import de.noahg_kaij.textadventure.gamelogic.IInventory;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
 import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
+import de.noahg_kaij.textadventure.gamelogic.MatchResult;
 
 /**
  * a copy player, just copies others players last choice
@@ -22,4 +23,16 @@ public abstract class BaseCopyPlayer implements IPlayer
     }
 
     protected abstract boolean defaultChoice();
+
+    @Override
+    public void preRound(IPlayer enemy)
+    {
+
+    }
+
+    @Override
+    public void postRound(IPlayer enemy, MatchResult matchResult)
+    {
+
+    }
 }

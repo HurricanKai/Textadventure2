@@ -3,6 +3,7 @@ package de.noahg_kaij.textadventure.bots;
 import de.noahg_kaij.textadventure.gamelogic.IInventory;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
 import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
+import de.noahg_kaij.textadventure.gamelogic.MatchResult;
 
 /**
  * a inverse player, just inverse others players last choice
@@ -24,5 +25,17 @@ public final class InversePlayer implements IPlayer
             return  !history.getMatchResult(history.getCurrentMatch() - 1).otherGave;
         }
         return false;
+    }
+
+    @Override
+    public void preRound(IPlayer enemy)
+    {
+
+    }
+
+    @Override
+    public void postRound(IPlayer enemy, MatchResult matchResult)
+    {
+
     }
 }

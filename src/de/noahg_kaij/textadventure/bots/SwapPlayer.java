@@ -3,12 +3,13 @@ package de.noahg_kaij.textadventure.bots;
 import de.noahg_kaij.textadventure.gamelogic.IInventory;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
 import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
+import de.noahg_kaij.textadventure.gamelogic.MatchResult;
 
 /**
  * a swap player, just inverses his last choice
  * @author noahg
  */
-public class SwapPlayer implements IPlayer
+public final class SwapPlayer implements IPlayer
 {
     @Override
     public String getDebugName()
@@ -24,5 +25,17 @@ public class SwapPlayer implements IPlayer
             return !history.getMatchResult(history.getCurrentMatch() - 1).youGave;
         }
         return true;
+    }
+
+    @Override
+    public void preRound(IPlayer enemy)
+    {
+
+    }
+
+    @Override
+    public void postRound(IPlayer enemy, MatchResult matchResult)
+    {
+
     }
 }
