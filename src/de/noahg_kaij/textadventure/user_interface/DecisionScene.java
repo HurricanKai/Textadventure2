@@ -1,11 +1,13 @@
 package de.noahg_kaij.textadventure.user_interface;
 
+import javax.swing.*;
+
 public final class DecisionScene implements IScene
 {
     private final Button _giveButton = new Button(new RelativeSize(0.1f), new RelativeSize(0.05f),
             new RelativeSize(0.8f), new RelativeSize(0.35f));
-    private final Button _keepButton = new Button(new RelativeSize(0.1f), new RelativeSize(0.55f),
-            new RelativeSize(0.8f), new RelativeSize(0.35f));
+    private final Button _keepButton = new Button(new RelativeSize(0.1f), new RelativeSize(0.65f),
+            new RelativeSize(0.8f), new RelativeSize(0.95f));
     private SceneManager _sceneManager;
 
     private boolean _decision;
@@ -34,14 +36,14 @@ public final class DecisionScene implements IScene
     @Override
     public boolean mouseClicked(int x, int y, int width, int height, int mouseButton)
     {
-        if (_giveButton.contains(x, y, width, height))
+        if(_giveButton.contains(x, y, width, height))
         {
             _decision = true;
             _hasDecision = true;
             return true;
         }
 
-        if (_keepButton.contains(x, y, width, height))
+        if(_keepButton.contains(x, y, width, height))
         {
             _decision = false;
             _hasDecision = true;
@@ -55,9 +57,11 @@ public final class DecisionScene implements IScene
      * Enables the current scene
      *
      * @param sceneManager the scene manager
+     * @param inputMap
+     * @param actionMap
      */
     @Override
-    public void enable(SceneManager sceneManager)
+    public void enable(SceneManager sceneManager, InputMap inputMap, ActionMap actionMap)
     {
         _sceneManager = sceneManager;
     }
@@ -66,9 +70,11 @@ public final class DecisionScene implements IScene
      * Disables the current scene
      *
      * @param sceneManager the scene manager
+     * @param inputMap
+     * @param actionMap
      */
     @Override
-    public void disable(SceneManager sceneManager)
+    public void disable(SceneManager sceneManager, InputMap inputMap, ActionMap actionMap)
     {
         _sceneManager = null;
     }

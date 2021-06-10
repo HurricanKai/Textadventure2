@@ -7,6 +7,7 @@ import de.noahg_kaij.textadventure.gamelogic.MatchResult;
 
 /**
  * A simple bot, that always gives.
+ *
  * @author Kai Jellinghaus
  */
 public final class AlwaysGivePlayer implements IPlayer

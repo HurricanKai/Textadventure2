@@ -2,6 +2,7 @@ package de.noahg_kaij.textadventure.gamelogic;
 
 /**
  * Represents the inventory of one player
+ *
  * @author Kai Jellinghaus
  */
 public interface IInventory

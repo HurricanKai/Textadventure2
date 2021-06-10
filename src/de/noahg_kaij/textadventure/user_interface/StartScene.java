@@ -1,5 +1,7 @@
 package de.noahg_kaij.textadventure.user_interface;
 
+import javax.swing.*;
+
 public final class StartScene implements IScene
 {
     private SceneManager _sceneManager;
@@ -17,13 +19,13 @@ public final class StartScene implements IScene
     }
 
     @Override
-    public void enable(SceneManager sceneManager)
+    public void enable(SceneManager sceneManager, InputMap inputMap, ActionMap actionMap)
     {
         _sceneManager = sceneManager;
     }
 
     @Override
-    public void disable(SceneManager sceneManager)
+    public void disable(SceneManager sceneManager, InputMap inputMap, ActionMap actionMap)
     {
         _sceneManager = null;
     }

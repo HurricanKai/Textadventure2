@@ -3,13 +3,14 @@ package de.noahg_kaij.textadventure.user_interface;
 import de.noahg_kaij.textadventure.gamelogic.GameConfiguration;
 import de.noahg_kaij.textadventure.gamelogic.MatchResult;
 
+import javax.swing.*;
 import java.awt.*;
 
 public final class ResultScene implements IScene
 {
     private final MatchResult _matchResult;
-    private SceneManager _sceneManager;
     private final GameConfiguration _gameConfiguration;
+    private SceneManager _sceneManager;
 
     public ResultScene(MatchResult matchResult, GameConfiguration gameConfiguration)
     {
@@ -25,25 +26,25 @@ public final class ResultScene implements IScene
         int reward;
         // TODO: better text!
         Color color;
-        if (_matchResult == MatchResult.BothGave)
+        if(_matchResult == MatchResult.BothGave)
         {
             actionStr = "You Both Gave";
             reward = _gameConfiguration.getBothGiveReward();
             color = _green;
         }
-        else if (_matchResult == MatchResult.OtherHeldYouGave)
+        else if(_matchResult == MatchResult.OtherHeldYouGave)
         {
             actionStr = "Other Held, You Gave";
             reward = _gameConfiguration.getGivingPunishment();
             color = _red;
         }
-        else if (_matchResult == MatchResult.OtherGaveYouHeld)
+        else if(_matchResult == MatchResult.OtherGaveYouHeld)
         {
             actionStr = "Other Gave, You Held";
             reward = _gameConfiguration.getTakingReward();
             color = _green;
         }
-        else if (_matchResult == MatchResult.BothHeld)
+        else if(_matchResult == MatchResult.BothHeld)
         {
             actionStr = "You both tried taking";
             reward = _gameConfiguration.getBothHeldReward();
@@ -73,13 +74,13 @@ public final class ResultScene implements IScene
     }
 
     @Override
-    public void enable(SceneManager sceneManager)
+    public void enable(SceneManager sceneManager, InputMap inputMap, ActionMap actionMap)
     {
         _sceneManager = sceneManager;
     }
 
     @Override
-    public void disable(SceneManager sceneManager)
+    public void disable(SceneManager sceneManager, InputMap inputMap, ActionMap actionMap)
     {
         _sceneManager = sceneManager;
     }

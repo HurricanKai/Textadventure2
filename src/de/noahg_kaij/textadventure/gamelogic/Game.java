@@ -1,12 +1,12 @@
 package de.noahg_kaij.textadventure.gamelogic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
 /**
  * A class representing a Game, player over multiple matches, with each match containing multiple rounds
+ *
  * @author Kai Jellinghaus
  */
 public final class Game
@@ -21,13 +21,14 @@ public final class Game
     /**
      * Creates a new Game instance when with a given configuration and the players to participate
      * Player number must be even
+     *
      * @param configuration The configuration to use
-     * @param players The players to participate in this game, length must be even
+     * @param players       The players to participate in this game, length must be even
      * @throws Exception when the player count isn't even
      */
     public Game(GameConfiguration configuration, IPlayer[] players) throws Exception
     {
-        if (players.length % 2 != 0)
+        if(players.length % 2 != 0)
             throw new Exception("Player Count has to be even");
 
         _configuration = configuration;
@@ -35,7 +36,7 @@ public final class Game
         _inventories = new InventoryImpl[players.length];
         _playerIndices = new ArrayList<>(players.length);
         _histories = new HistoryImpl[players.length];
-        for (int i = 0; i < _inventories.length; i++)
+        for(int i = 0; i < _inventories.length; i++)
         {
             _playerIndices.add(i);
             _histories[i] = new HistoryImpl(_configuration.getMatchesPerRound());
@@ -48,11 +49,11 @@ public final class Game
     {
         var v = _playerIndices;
         Collections.shuffle(v, _random);
-        for (HistoryImpl history : _histories) history.reset();
+        for(HistoryImpl history : _histories) history.reset();
 
-        for (int i = 0; i < _configuration.getMatchesPerRound(); i++)
+        for(int i = 0; i < _configuration.getMatchesPerRound(); i++)
         {
-            for (int j = 0; j < _players.length; j += 2)
+            for(int j = 0; j < _players.length; j += 2)
             {
                 var playerIndex1 = _playerIndices.get(j);
                 var player1 = _players[playerIndex1];
@@ -67,7 +68,7 @@ public final class Game
                 player2.preRound(player1);
                 var choice1 = player1.makeChoice(history1, inventory1, player2);
                 var choice2 = player2.makeChoice(history2, inventory2, player1);
-                if (choice1 && choice2)
+                if(choice1 && choice2)
                 {
                     inventory1._currentCoins += _configuration.getBothGiveReward();
                     history1.nextMatch(MatchResult.BothGave);
@@ -77,7 +78,7 @@ public final class Game
                     player2.postRound(player1, MatchResult.BothGave);
                     // System.out.printf("%d%n played against %d%n and both gave\n", playerIndex1, playerIndex2);
                 }
-                else if (choice1)
+                else if(choice1)
                 {
                     inventory1._currentCoins += _configuration.getGivingPunishment();
                     history1.nextMatch(MatchResult.OtherHeldYouGave);
@@ -87,7 +88,7 @@ public final class Game
                     player2.postRound(player1, MatchResult.OtherGaveYouHeld);
                     // System.out.printf("%d%n played against %d%n and player 1 got cheated on\n", playerIndex1, playerIndex2);
                 }
-                else if (choice2)
+                else if(choice2)
                 {
                     inventory1._currentCoins += _configuration.getTakingReward();
                     history1.nextMatch(MatchResult.OtherGaveYouHeld);
@@ -113,8 +114,8 @@ public final class Game
 
     private final class InventoryImpl implements IInventory
     {
-        private int _currentCoins;
         private final int _startingCoins;
+        private int _currentCoins;
 
         private InventoryImpl(int startingCoins)
         {
@@ -138,8 +139,8 @@ public final class Game
     private final class HistoryImpl implements IRoundHistory
     {
         private final int _maxMatch;
-        private int _currentMatch = 0;
         private final MatchResult[] _results;
+        private int _currentMatch = 0;
         private MatchResult _lastRoundLastMatch;
 
         private HistoryImpl(int maxMatch)
@@ -176,7 +177,7 @@ public final class Game
         {
             _currentMatch = 0;
             _lastRoundLastMatch = _results[_maxMatch - 1];
-            for (int i = 0; i < _maxMatch; i++)
+            for(int i = 0; i < _maxMatch; i++)
                 _results[i] = MatchResult.None;
         }
 

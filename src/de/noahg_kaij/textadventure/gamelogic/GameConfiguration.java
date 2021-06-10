@@ -2,6 +2,7 @@ package de.noahg_kaij.textadventure.gamelogic;
 
 /**
  * Represents a game configuration to use with {@link Game}
+ *
  * @author Kai Jellinghaus
  */
 public final class GameConfiguration
@@ -10,7 +11,7 @@ public final class GameConfiguration
     private int _matchesPerRound = 5;
     private int _bothGiveReward = 2;
     private int _takingReward = 3;
-    private int _givingPunishment = -1;
+    private int _givingPunishment = - 1;
     private int _bothHeldReward = 0;
 
     /**

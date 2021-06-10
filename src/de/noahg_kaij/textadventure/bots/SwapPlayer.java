@@ -7,6 +7,7 @@ import de.noahg_kaij.textadventure.gamelogic.MatchResult;
 
 /**
  * a swap player, just inverses his last choice
+ *
  * @author noahg
  */
 public final class SwapPlayer implements IPlayer
@@ -22,7 +23,7 @@ public final class SwapPlayer implements IPlayer
     {
         if(history.getCurrentMatch() > 0)
         {
-            return !history.getMatchResult(history.getCurrentMatch() - 1).youGave;
+            return ! history.getMatchResult(history.getCurrentMatch() - 1).youGave;
         }
         return true;
     }

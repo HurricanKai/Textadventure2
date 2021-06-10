@@ -8,7 +8,8 @@ import de.noahg_kaij.textadventure.user_interface.UIPlayer;
 
 import javax.swing.*;
 
-public class Main {
+public class Main
+{
 
     public static void main(String[] args) throws Exception
     {
@@ -20,7 +21,7 @@ public class Main {
         frame.setSize(1000, 1000);
         frame.setVisible(true);
 
-        var players = new IPlayer[] {
+        var players = new IPlayer[]{
                 new AlwaysGivePlayer(),
                 new AlwaysHoldPlayer(),
                 new UnforgivingPlayer(),
@@ -31,7 +32,7 @@ public class Main {
                 player
         };
         var game = new Game(config, players);
-        while (true)
+        while(true)
         {
             game.playRound();
         }

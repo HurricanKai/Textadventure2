@@ -2,6 +2,7 @@ package de.noahg_kaij.textadventure.bots;
 
 /**
  * evil version of {@link BaseCopyPlayer}, first choice always hold
+ *
  * @author noahg
  */
 public final class EvilCopyPlayer extends BaseCopyPlayer

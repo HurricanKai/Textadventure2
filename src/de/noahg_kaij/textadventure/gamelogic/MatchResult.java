@@ -2,6 +2,7 @@ package de.noahg_kaij.textadventure.gamelogic;
 
 /**
  * Represents the possible results of a Round
+ *
  * @author Kai Jellinghaus
  */
 public enum MatchResult
