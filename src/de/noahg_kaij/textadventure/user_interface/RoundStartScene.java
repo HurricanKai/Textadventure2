@@ -2,7 +2,7 @@ package de.noahg_kaij.textadventure.user_interface;
 
 import javax.swing.*;
 
-public final class StartScene implements IScene
+public final class RoundStartScene implements IScene
 {
     private SceneManager _sceneManager;
 

@@ -69,7 +69,7 @@ public final class ResultScene implements IScene
     @Override
     public boolean mouseClicked(int x, int y, int width, int height, int mouseButton)
     {
-        _sceneManager.changeScene(new StartScene());
+        _sceneManager.changeScene(new RoundStartScene());
         return true;
     }
 

@@ -15,9 +15,6 @@ import java.util.Map;
 /**
  * An implementation of {@link de.noahg_kaij.textadventure.gamelogic.IPlayer} using UI displayed to the user.
  * This class only serves as the in-game UI. The menu, game mode selection, rule config, etc. are different, and do not interact with {@link de.noahg_kaij.textadventure.gamelogic} directly.
- *
- * @author Kai Jellinghaus
- * @author noahg
  */
 public final class UIPlayer extends JComponent implements IPlayer
 {
@@ -35,7 +32,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     public UIPlayer(GameConfiguration gameConfiguration)
     {
         _gameConfiguration = gameConfiguration;
-        _sceneManager = new SceneManager(new StartScene(), this, getInputMap(WHEN_IN_FOCUSED_WINDOW), getActionMap());
+        _sceneManager = new SceneManager(new GameStartScene(), this, getInputMap(WHEN_IN_FOCUSED_WINDOW), getActionMap());
 
         this.addMouseListener(new MouseAdapter()
         {
@@ -127,7 +124,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     @Override
     public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
     {
-        while(! (_sceneManager.getCurrentScene() instanceof StartScene))
+        while(! (_sceneManager.getCurrentScene() instanceof RoundStartScene))
         {
             Thread.onSpinWait();
         }

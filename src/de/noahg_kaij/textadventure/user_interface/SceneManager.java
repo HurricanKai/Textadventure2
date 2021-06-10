@@ -21,6 +21,8 @@ public final class SceneManager implements ISceneManager
         this.toRepaint = toRepaint;
         this.inputMap = inputMap;
         this.actionMap = actionMap;
+
+        _currentScene.enable(this,inputMap,actionMap);
     }
 
     @Override
