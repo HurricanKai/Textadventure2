@@ -1,6 +1,4 @@
-package de.noahg_kaij.textadventure.bots.simple;
-
-import de.noahg_kaij.textadventure.bots.simple.BaseCopyPlayer;
+package de.noahg_kaij.textadventure.bots;
 
 /**
  * evil version of {@link BaseCopyPlayer}, first choice always hold

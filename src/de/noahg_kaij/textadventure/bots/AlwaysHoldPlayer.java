@@ -1,28 +1,24 @@
-package de.noahg_kaij.textadventure.bots.simple;
+package de.noahg_kaij.textadventure.bots;
 
 import de.noahg_kaij.textadventure.gamelogic.IInventory;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
 import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
 
 /**
- * a inverse player, just inverse others players last choice
- * @author noahg
+ * A simple bot that always holds
+ * @author Kai Jellinghaus
  */
-public final class InversePlayer implements IPlayer
+public final class AlwaysHoldPlayer implements IPlayer
 {
     @Override
     public String getDebugName()
     {
-        return "inverse";
+        return "always hold";
     }
 
     @Override
     public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
     {
-        if (history.getCurrentMatch() > 0)
-        {
-            return  !history.getMatchResult(history.getCurrentMatch() - 1).otherGave;
-        }
         return false;
     }
 }

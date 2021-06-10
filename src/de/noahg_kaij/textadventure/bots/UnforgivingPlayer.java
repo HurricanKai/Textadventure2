@@ -1,4 +1,4 @@
-package de.noahg_kaij.textadventure.bots.complex;
+package de.noahg_kaij.textadventure.bots;
 
 import de.noahg_kaij.textadventure.gamelogic.IInventory;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;

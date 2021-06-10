@@ -1,7 +1,6 @@
 package de.noahg_kaij.textadventure;
 
-import de.noahg_kaij.textadventure.bots.complex.UnforgivingPlayer;
-import de.noahg_kaij.textadventure.bots.simple.*;
+import de.noahg_kaij.textadventure.bots.*;
 import de.noahg_kaij.textadventure.gamelogic.Game;
 import de.noahg_kaij.textadventure.gamelogic.GameConfiguration;
 import de.noahg_kaij.textadventure.gamelogic.IPlayer;
