@@ -5,6 +5,8 @@ import de.noahg_kaij.textadventure.gamelogic.IPlayer;
 import de.noahg_kaij.textadventure.gamelogic.IRoundHistory;
 import de.noahg_kaij.textadventure.gamelogic.MatchResult;
 
+import java.util.HashMap;
+
 /**
  * An unforgiving player, always trying to cooperate, until betrayed once.
  *
@@ -13,11 +15,11 @@ import de.noahg_kaij.textadventure.gamelogic.MatchResult;
 public final class UnforgivingPlayer implements IPlayer
 {
 
-    @Override
+    /*@Override
     public String getDebugName()
     {
         return "unforgiving";
-    }
+    }*/
 
     @Override
     public boolean makeChoice(IRoundHistory history, IInventory inventory, IPlayer enemy)
@@ -44,5 +46,38 @@ public final class UnforgivingPlayer implements IPlayer
     public void postRound(IPlayer enemy, MatchResult matchResult)
     {
 
+    }
+
+    private static final HashMap<MatchResult, String[]> _story = new HashMap<MatchResult, String[]>()
+    {{
+        put(MatchResult.BothGave, new String[] {
+                "Du bist wohl auch ein Mann der Gerechtigkeit.",
+                "Du gefällst mir!",
+                null, null, null, null, null, null, null, null,
+
+        });
+        put(MatchResult.BothHeld, new String[] {
+                "Der Kampf zwischen Gut und Böse schreitet voran!",
+                null, null, null, null,
+        });
+        put(MatchResult.OtherHeldYouGave, new String[] {
+                "Du hast das Gesetz gebrochen!",
+                "Ein Unmensch!",
+                "Ich werde dich Richten!",
+                null, null, null, null, null, null, null, null, null, null, null, null,
+        });
+        put(MatchResult.OtherGaveYouHeld, new String[] {
+                "Glaub nicht ich würde auf dich hineinfallen!",
+                "Es wird keine Gnade geben!",
+                null, null, null, null, null, null, null, null,
+        });
+    }};
+    private int _storyIndex = 0;
+    @Override
+    public String getStorySegment(MatchResult matchResult)
+    {
+        _storyIndex += Math.random() * 5;
+        _storyIndex %= _story.get(matchResult).length;
+        return _story.get(matchResult)[_storyIndex];
     }
 }

@@ -31,5 +31,10 @@ public interface IPlayer
      */
     void postRound(IPlayer enemy, MatchResult matchResult);
 
-    String getDebugName();
+    /**
+     * Retreives a Story segment for a match result.
+     *
+     * @param matchResult the match result.
+     */
+    String getStorySegment(MatchResult matchResult);
 }

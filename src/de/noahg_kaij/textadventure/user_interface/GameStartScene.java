@@ -8,13 +8,14 @@ public final class GameStartScene implements IScene
     private int i = 0;
     private String[][] story;
     private SceneManager sceneManager;
+    private Button[] _buttons;
 
     public GameStartScene()
     {
         story = new String[][]
                 {
                         {
-                                "Hey, ich bin AlwaysGive. Du scheinst neu in der Stadt zu sein.",
+                                "Du scheinst neu in der Stadt zu sein.",
                                 "Merkt man das?",
                                 "Ja, woher weißt du das?"
                         },
@@ -28,12 +29,13 @@ public final class GameStartScene implements IScene
                         {
                                 "Soll ich es dir erklären?",
                                 "Ja gerne. (Anleitung ansehen)",
-                                "Nein danke, ich weiß, wie es geht. (ohne Anleitung vortfahren)"
+                                "Nein danke."
                         },
                         {
                                 "In Ordnung lass uns loslegen."
                         }
                 };
+        OnStoryChange();
     }
 
     @Override
@@ -41,23 +43,32 @@ public final class GameStartScene implements IScene
     {
         graphics.color(_textCol).font(_mainFontLarge).drawString(story[i][0], new RelativeSize(0.5f), new RelativeSize(0.3f), Anchor.Center, Anchor.Center);
 
-        BetterGraphics innerGraphics = graphics.translate(new RelativeSize(0.05f), new RelativeSize(0.4f));
-        innerGraphics = innerGraphics.clip(new RelativeSize(0.95f), new RelativeSize(0.8f));
+        int g = 1;
+        for(var b : _buttons) {
+            b.draw(graphics.color(_frontCol));
+            b.getContentGraphics(graphics).font(_mainFontLarge).color(_textCol).drawString(story[i][g], new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);            b.getContentGraphics(graphics).font(_mainFontLarge).color(_textCol).drawString(story[i][g], new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
+            g++;
+        }
+    }
+
+    private void OnStoryChange()
+    {
         switch (story[i].length)
         {
-            case 2: Button button = new Button(new RelativeSize(0), new RelativeSize(0.2f), new RelativeSize(1), new RelativeSize(0.5f));
-                    button.draw(innerGraphics.color(_frontCol));
-                    button.getContentGraphics(innerGraphics).font(_mainFontLarge).color(_textCol).drawString(story[i][1], new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
+            case 1:
+                _buttons = new Button[0];
                 break;
-            case 3: Button button1 = new Button(new RelativeSize(0), new RelativeSize(0.2f), new RelativeSize(0.4f), new RelativeSize(0.5f));
-                button1.draw(innerGraphics.color(_frontCol));
-                button1.getContentGraphics(innerGraphics).font(_mainFontLarge).color(_textCol).drawString(story[i][1], new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
-
-                Button button2 = new Button(new RelativeSize(0.6f), new RelativeSize(0.2f), new RelativeSize(1f), new RelativeSize(0.5f));
-                button2.draw(innerGraphics.color(_frontCol));
-                button2.getContentGraphics(innerGraphics).font(_mainFontLarge).color(_textCol).drawString(story[i][2], new RelativeSize(0.5f), new RelativeSize(0.5f), Anchor.Center, Anchor.Center);
+            case 2:
+                Button button = new Button(new RelativeSize(0.05f), new RelativeSize(0.6f), new RelativeSize(0.95f), new RelativeSize(0.8f));
+                _buttons = new Button[] { button };
+                break;
+            case 3:
+                Button button1 = new Button(new RelativeSize(0.05f), new RelativeSize(0.6f), new RelativeSize(0.4f), new RelativeSize(0.8f));
+                Button button2 = new Button(new RelativeSize(0.55f), new RelativeSize(0.6f), new RelativeSize(0.8f), new RelativeSize(0.8f));
+                _buttons = new Button[]{ button1, button2};
+                break;
             default:
-                break;
+                throw new RuntimeException();
         }
     }
 
@@ -66,13 +77,38 @@ public final class GameStartScene implements IScene
     {
         if(i < story.length - 1)
         {
-            i++;
-            sceneManager.repaint();
-            return true;
+            if (_buttons.length == 0)
+            {
+                i++;
+                OnStoryChange();
+                sceneManager.repaint();
+                return true;
+            }
+            int g = 0;
+            for (var b : _buttons)
+            {
+                if (b.contains(x, y, width, height))
+                {
+
+                    if (i == 3) {
+                        if (g == 0) {
+                            var f = new TutorialFrame();
+                            f.setVisible(true);
+                            f.setTitle("Tutorial");
+                        }
+                    }
+                    i++;
+                    OnStoryChange();
+                    sceneManager.repaint();
+                    return true;
+                }
+                g++;
+            }
         }
         else
         {
             sceneManager.changeScene(new RoundStartScene());
+            return true;
         }
         return false;
     }

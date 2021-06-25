@@ -32,7 +32,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     public UIPlayer(GameConfiguration gameConfiguration)
     {
         _gameConfiguration = gameConfiguration;
-        _sceneManager = new SceneManager(new GameStartScene(), this, getInputMap(WHEN_IN_FOCUSED_WINDOW), getActionMap());
+        _sceneManager = new SceneManager(new MainMenuScene(), this, getInputMap(WHEN_IN_FOCUSED_WINDOW), getActionMap());
 
         this.addMouseListener(new MouseAdapter()
         {
@@ -118,7 +118,7 @@ public final class UIPlayer extends JComponent implements IPlayer
     @Override
     public void postRound(IPlayer enemy, MatchResult matchResult)
     {
-        _sceneManager.changeScene(new ResultScene(matchResult, _gameConfiguration));
+        _sceneManager.changeScene(new ResultScene(matchResult, _gameConfiguration, enemy));
     }
 
     @Override
@@ -143,9 +143,15 @@ public final class UIPlayer extends JComponent implements IPlayer
         return decisionScene.getDecision();
     }
 
-    @Override
+    /*@Override
     public String getDebugName()
     {
         return "REAL PLAYER";
+    }*/
+
+    @Override
+    public String getStorySegment(MatchResult matchResult)
+    {
+        throw new RuntimeException();
     }
 }

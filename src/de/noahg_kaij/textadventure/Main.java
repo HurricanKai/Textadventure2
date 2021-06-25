@@ -20,14 +20,15 @@ public class Main
         frame.add(player);
         frame.setSize(1000, 1000);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         var players = new IPlayer[]{
                 new AlwaysGivePlayer(),
                 new AlwaysHoldPlayer(),
                 new UnforgivingPlayer(),
                 new EvilCopyPlayer(),
-                new NiceCopyPlayer(),
                 new InversePlayer(),
+                new AlwaysHoldPlayer(),
                 new SwapPlayer(),
                 player
         };

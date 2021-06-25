@@ -7,6 +7,7 @@ public interface IScene
 {
     Font _mainFont = new Font("Arial", Font.PLAIN, 12);
     Font _mainFontSmall = _mainFont.deriveFont(15f);
+    Font _mainFontMedium = _mainFont.deriveFont(20f);
     Font _mainFontLarge = _mainFont.deriveFont(25f);
     Font _mainFontMegaLarge = _mainFont.deriveFont(40f);
     Font _debugFont = new Font("Monospaced", Font.PLAIN, 40);
