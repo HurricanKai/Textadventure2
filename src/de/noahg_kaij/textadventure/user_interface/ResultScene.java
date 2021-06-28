@@ -25,6 +25,7 @@ public final class ResultScene implements IScene
             _storyStr = null;
     }
 
+
     private MatchResult inverseResult(MatchResult result) {
         switch(result) {
             case OtherHeldYouGave:

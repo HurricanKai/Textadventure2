@@ -15,6 +15,13 @@ public final class SceneManager implements ISceneManager
     private final ActionMap actionMap;
     private IScene _currentScene;
 
+    /**
+     * manages scene
+     * @param startScene current scene
+     * @param toRepaint repaint able Component
+     * @param inputMap maps the inputs
+     * @param actionMap maps the actions
+     */
     public SceneManager(IScene startScene, Component toRepaint, InputMap inputMap, ActionMap actionMap)
     {
         _currentScene = startScene;

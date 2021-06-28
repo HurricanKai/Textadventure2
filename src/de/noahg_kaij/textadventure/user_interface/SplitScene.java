@@ -34,6 +34,10 @@ public final class SplitScene implements IScene
         this.right = right;
     }
 
+    /**
+     * render the graphics
+     * @param graphics the graphics object to render into
+     */
     @Override
     public void render(BetterGraphics graphics)
     {

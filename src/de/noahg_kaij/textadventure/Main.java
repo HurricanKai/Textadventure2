@@ -20,9 +20,10 @@ public class Main
         frame.add(player);
         frame.setSize(1000, 1000);
         frame.setVisible(true);
+        frame.setTitle("Scral");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        var players = new IPlayer[]{
+        var players = new IPlayer[]{    //player initialisation
                 new AlwaysGivePlayer(),
                 new AlwaysHoldPlayer(),
                 new UnforgivingPlayer(),
